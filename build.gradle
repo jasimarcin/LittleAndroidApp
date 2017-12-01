@@ -26,6 +26,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-ext{
-    dagger2Version = '2.11'
-}
