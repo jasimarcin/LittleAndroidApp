@@ -1,6 +1,7 @@
 package com.marcin.jasi.littleandroidapp.general.injection.component
 
 import android.app.Application
+import com.marcin.jasi.littleandroidapp.general.injection.annotation.PerApp
 import com.marcin.jasi.littleandroidapp.general.injection.module.ActivityBuilder
 import com.marcin.jasi.littleandroidapp.general.injection.module.ApplicationModule
 import com.marcin.jasi.littleandroidapp.general.injection.module.FragmentBuilder
@@ -10,9 +11,10 @@ import dagger.android.support.AndroidSupportInjectionModule
 
 @Component(modules = arrayOf(
         AndroidSupportInjectionModule::class,
-        ApplicationModule::class,
         FragmentBuilder::class,
+        ApplicationModule::class,
         ActivityBuilder::class))
+@PerApp
 interface ApplicationComponent {
 
     @Component.Builder
@@ -24,5 +26,4 @@ interface ApplicationComponent {
     }
 
     fun inject(application: com.marcin.jasi.littleandroidapp.Application)
-
 }

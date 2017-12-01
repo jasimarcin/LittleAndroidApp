@@ -5,8 +5,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
     dataBinding.enabled = true
     defaultConfig {
         applicationId "com.martino.jasiu.learnkotlin"
@@ -26,8 +26,9 @@ android {
 }
 
 ext {
-    supportLibVersion = '27.0.2'
+    supportLibVersion = '26.1.0'
     dagger2Version = '2.11'
+    androidFeatures = '1.0.0-alpha8'
 }
 
 dependencies {
@@ -59,12 +60,12 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:2.0.0"
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
 
-//    implementation "android.arch.lifecycle:runtime:$rootProject.ext.androidFeatures"
-//    implementation "android.arch.lifecycle:extensions:$rootProject.ext.androidFeatures"
-//    kapt "android.arch.lifecycle:compiler:$rootProject.ext.androidFeatures"
+    implementation "android.arch.lifecycle:runtime:$androidFeatures"
+    implementation "android.arch.lifecycle:extensions:$androidFeatures"
+    kapt "android.arch.lifecycle:compiler:$androidFeatures"
 
-//    compile "android.arch.persistence.room:runtime:1.0.0-alpha9-1"
-//    kapt "android.arch.persistence.room:compiler:1.0.0-alpha9-1"
+    compile "android.arch.persistence.room:runtime:1.0.0-alpha9-1"
+    kapt "android.arch.persistence.room:compiler:1.0.0-alpha9-1"
 
 
 //    compile "com.github.VictorAlbertos.RxCache:runtime:1.8.1-2.x"
