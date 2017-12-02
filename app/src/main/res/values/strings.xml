@@ -3,4 +3,6 @@
 
     <string name="title_activity_main">LittleAndroidApp</string>
     <string name="title_activity_details">LittleAndroidApp</string>
+
+    <string name="photos_list_header">HEADER</string>
 </resources>

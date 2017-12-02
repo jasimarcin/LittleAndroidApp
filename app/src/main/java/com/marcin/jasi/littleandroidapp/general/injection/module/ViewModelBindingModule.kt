@@ -2,6 +2,7 @@ package com.marcin.jasi.littleandroidapp.general.injection.module
 
 import com.marcin.jasi.littleandroidapp.details.presentation.viewModel.DetailsFragmentViewModel
 import com.marcin.jasi.littleandroidapp.details.presentation.viewModel.DetailsFragmentViewModelImpl
+import com.marcin.jasi.littleandroidapp.general.injection.annotation.PerFragment
 import com.marcin.jasi.littleandroidapp.main.presentation.viewModel.MainActivityViewModel
 import com.marcin.jasi.littleandroidapp.main.presentation.viewModel.MainActivityViewModelImpl
 import com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.PhotosListViewModel

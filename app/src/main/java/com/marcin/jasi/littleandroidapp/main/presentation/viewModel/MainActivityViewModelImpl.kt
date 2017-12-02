@@ -6,5 +6,4 @@ import javax.inject.Inject
 class MainActivityViewModelImpl @Inject constructor() : CommonViewModelImpl(), MainActivityViewModel {
 
 
-
 }

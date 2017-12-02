@@ -15,6 +15,7 @@ class PhotosListFragment : CommonFragment<PhotosListViewModel>() {
 
     override fun bindData(inflater: LayoutInflater, container: ViewGroup?) {
         binding = PhotosListFragmentBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
     }
 
     override fun getRootView(): View {
@@ -22,6 +23,6 @@ class PhotosListFragment : CommonFragment<PhotosListViewModel>() {
     }
 
     override fun initialize() {
-
+        viewModel.resetHeaderColor()
     }
 }

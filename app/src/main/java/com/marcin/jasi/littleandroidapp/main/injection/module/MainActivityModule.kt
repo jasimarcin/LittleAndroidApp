@@ -15,9 +15,9 @@ import dagger.Provides
 @PerActivity
 class MainActivityModule {
 
-    @Provides
-    @PerActivity
-    fun provideNavigator(activity: MainActivity): Navigator = Navigator(activity)
+//    @Provides
+//    @PerActivity
+//    fun provideNavigator(activity: MainActivity): Navigator = Navigator(activity)
 
     @Provides
     @PerActivity
