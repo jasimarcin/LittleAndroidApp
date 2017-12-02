@@ -1,14 +1,20 @@
 package com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel
 
-import android.content.DialogInterface
 import android.databinding.ObservableInt
+import android.support.v7.util.DiffUtil
 import android.view.MotionEvent
 import android.view.View
 import com.marcin.jasi.littleandroidapp.R
+import com.marcin.jasi.littleandroidapp.general.domain.mapper.DataMapper
 import com.marcin.jasi.littleandroidapp.general.injection.annotation.PerFragment
 import com.marcin.jasi.littleandroidapp.general.presentation.common.CommonViewModelImpl
 import com.marcin.jasi.littleandroidapp.general.presentation.helper.ColorGenerator
 import com.marcin.jasi.littleandroidapp.general.presentation.helper.DialogHelper
+import com.marcin.jasi.littleandroidapp.photosList.domain.entity.Photo
+import com.marcin.jasi.littleandroidapp.photosList.domain.interactor.GetPhotosList
+import io.reactivex.subjects.ReplaySubject
+import io.reactivex.subjects.Subject
+import timber.log.Timber
 import javax.inject.Inject
 
 @PerFragment
@@ -19,6 +25,8 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
         var RED_HEADER_COLOR = R.color.red_color
         var BLUE_HEADER_COLOR = R.color.blue_color
         var WHITE_HEADER_COLOR = R.color.white_color
+
+        val FIRST_SIDE = 0L
     }
 
     @Inject
@@ -27,7 +35,13 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
     lateinit var dialogHelper: DialogHelper
     @Inject
     lateinit var progressDialogController: ProgressDialogController
+    @Inject
+    lateinit var getPhotosList: GetPhotosList
+    @Inject
+    lateinit var entityMapper: DataMapper<Photo, PhotosListItemViewModel>
 
+
+    var loadNewData: Subject<List<PhotosListItemViewModel>> = ReplaySubject.create()
     var headerColorObservable: ObservableInt = ObservableInt()
 
     override fun resetHeaderColor() {
@@ -78,7 +92,6 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
         val dialog = dialogHelper.showProgressBarDialog(progressDialogController)
 
         progressDialogController.callFinish.subscribe({ time ->
-//            progressDialogController.onDispose()
             dialog.dismiss()
             validateIfCountingInterupted(time)
         })
@@ -97,5 +110,14 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
     private fun setBlueHeaderTextColor() {
         headerColorObservable.set(colorGenerator.getColor(BLUE_HEADER_COLOR))
     }
+
+    override fun loadData() {
+        getPhotosList.getPhotosList(FIRST_SIDE)
+                .map { photo -> entityMapper.transform(photo) }
+                .doOnError { error -> Timber.d(error.message) }
+                .subscribe({ data -> loadNewData.onNext(data) })
+    }
+
+    override fun getLoadNewDataSubject(): Subject<List<PhotosListItemViewModel>> = loadNewData
 
 }

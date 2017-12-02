@@ -4,5 +4,7 @@
     <dimen name="dialog_margin">50dp</dimen>
     <dimen name="dialog_padding">10dp</dimen>
     <dimen name="dialog_progress_bar_size">50dp</dimen>
+    <dimen name="photos_list_image_size">60dp</dimen>
+    <dimen name="photos_list_image_margin">10dp</dimen>
 
 </resources>

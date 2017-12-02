@@ -3,6 +3,9 @@ package com.marcin.jasi.littleandroidapp.general.presentation.adapter
 import android.databinding.BindingAdapter
 import android.view.View
 import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.marcin.jasi.littleandroidapp.R
 
 class CommonBindingAdapter {
 
@@ -11,7 +14,10 @@ class CommonBindingAdapter {
         @JvmStatic
         @BindingAdapter("imageUrl")
         fun setImageUrl(imageView: ImageView, url: String) {
-//            Glide.with(imageView).load(url).into(imageView)
+            Glide.with(imageView)
+                    .load(url)
+                    .apply(RequestOptions().placeholder(R.drawable.ic_launcher_background))
+                    .into(imageView)
         }
 
         @JvmStatic
