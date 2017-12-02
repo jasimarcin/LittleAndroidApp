@@ -9,5 +9,9 @@
     <color name="white_color">#fff</color>
     <color name="green_color">#0f0</color>
     <color name="red_color">#f00</color>
+    <color name="blue_color">#00f</color>
+
+    <color name="dialog_background_color">#6fff</color>
+    <color name="dialog_text_color">#b568</color>
 
 </resources>

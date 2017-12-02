@@ -20,6 +20,12 @@ class CommonBindingAdapter {
             view.setOnTouchListener(listener)
         }
 
+        @JvmStatic
+        @BindingAdapter("onClick")
+        fun setOnTouchListener(view: View, listener: View.OnClickListener) {
+            view.setOnClickListener(listener)
+        }
+
     }
 
 }

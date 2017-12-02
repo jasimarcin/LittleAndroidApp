@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="controller"
+            type="com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.ProgressDialogController" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_margin"
+        android:background="@color/dialog_background_color"
+        android:padding="@dimen/dialog_padding">
+
+        <TextView
+            android:id="@+id/dialog_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dialog_padding"
+            android:text="@string/dialog_header_text"
+            android:textColor="@color/dialog_text_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="DIALOG" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="@dimen/dialog_progress_bar_size"
+            android:layout_height="@dimen/dialog_progress_bar_size"
+            android:layout_margin="@dimen/dialog_margin"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="@{controller.progress}"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            app:layout_constraintBottom_toTopOf="@+id/dialog_cancel_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_header" />
+
+        <TextView
+            android:id="@+id/dialog_cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dialog_padding"
+            android:text="@string/dialog_cancel_button_text"
+            android:textColor="@color/dialog_text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:onClick="@{controller.onCancelClick()}"
+            tools:text="CANCEL" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

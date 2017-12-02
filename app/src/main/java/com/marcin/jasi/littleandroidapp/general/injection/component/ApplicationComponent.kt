@@ -28,6 +28,4 @@ interface ApplicationComponent {
 
     fun inject(application: com.marcin.jasi.littleandroidapp.Application)
 
-//    fun provideColorGenerator(): ColorGenerator
-
 }

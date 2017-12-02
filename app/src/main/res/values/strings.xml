@@ -5,4 +5,8 @@
     <string name="title_activity_details">LittleAndroidApp</string>
 
     <string name="photos_list_header">HEADER</string>
+
+    <string name="dialog_header_text">DIALOG</string>
+    <string name="dialog_cancel_button_text">CANCEL</string>
+
 </resources>
