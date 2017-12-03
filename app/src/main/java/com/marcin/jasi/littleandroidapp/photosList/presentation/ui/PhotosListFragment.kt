@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.marcin.jasi.littleandroidapp.databinding.PhotosListFragmentBinding
 import com.marcin.jasi.littleandroidapp.general.injection.annotation.PerFragment
 import com.marcin.jasi.littleandroidapp.general.presentation.common.CommonFragment
+import com.marcin.jasi.littleandroidapp.photosList.domain.interactor.GetPhotosList
 import com.marcin.jasi.littleandroidapp.photosList.domain.interactor.GetPhotosList.Companion.FIRST_SIDE
 import com.marcin.jasi.littleandroidapp.photosList.presentation.adapter.PhotosListAdapter
 import com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.PhotosListItemViewModel
@@ -57,6 +58,7 @@ class PhotosListFragment : CommonFragment<PhotosListViewModel>() {
                 viewModel.getLoadNewDataSubject()
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .doOnNext({ dataList -> checkIfLastDada(dataList) })
                         .map { data ->
                             mergeLists(data)
                             sortList(data)
@@ -67,6 +69,11 @@ class PhotosListFragment : CommonFragment<PhotosListViewModel>() {
                         }
                         .doOnError { throwable -> Timber.d(throwable.message) }
                         .subscribe({ data -> updateList(data) }))
+    }
+
+    private fun checkIfLastDada(dataList: List<PhotosListItemViewModel>) {
+        if (dataList.size < GetPhotosList.PACK_SIZE)
+            viewModel.setLastDataDownloaded(true)
     }
 
     private fun mergeLists(data: List<PhotosListItemViewModel>) {

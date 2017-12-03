@@ -13,8 +13,10 @@ interface PhotosListViewModel : CommonViewModel {
 
     fun resetHeaderColor()
 
-    fun loadData(id : Int)
+    fun loadData(id: Int)
 
     fun getLoadNewDataSubject(): Subject<List<PhotosListItemViewModel>>
+
+    fun setLastDataDownloaded(downloaded: Boolean)
 
 }

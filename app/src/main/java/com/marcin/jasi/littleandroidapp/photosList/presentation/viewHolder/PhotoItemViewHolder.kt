@@ -1,13 +1,16 @@
 package com.marcin.jasi.littleandroidapp.photosList.presentation.viewHolder
 
-import android.support.v7.widget.RecyclerView
+import android.databinding.ViewDataBinding
 import com.marcin.jasi.littleandroidapp.databinding.PhotosListRowBinding
+import com.marcin.jasi.littleandroidapp.general.presentation.common.CommonViewModel
+import com.marcin.jasi.littleandroidapp.general.presentation.viewHolder.BaseRecyclerViewHolder
 import com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.PhotosListItemViewModel
 
-class PhotoItemViewHolder(val binding: PhotosListRowBinding) : RecyclerView.ViewHolder(binding.root) {
+class PhotoItemViewHolder(val binding: PhotosListRowBinding) : BaseRecyclerViewHolder<ViewDataBinding, CommonViewModel>(binding) {
 
-    fun bind(viewModel: PhotosListItemViewModel) {
-        binding.viewModel = viewModel
+    override fun bind(viewModel: CommonViewModel) {
+        binding.viewModel = viewModel as PhotosListItemViewModel
     }
+
 }
 

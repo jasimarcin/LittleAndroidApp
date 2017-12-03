@@ -14,6 +14,7 @@ import com.marcin.jasi.littleandroidapp.photosList.domain.entity.mapper.PhotosEn
 import com.marcin.jasi.littleandroidapp.photosList.domain.entity.mapper.PhotosViewModelMapper
 import com.marcin.jasi.littleandroidapp.photosList.presentation.adapter.PhotosListAdapter
 import com.marcin.jasi.littleandroidapp.photosList.presentation.ui.PhotosListFragment
+import com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.InfiniteScrollingProgressViewModel
 import com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.PhotosListItemViewModel
 import com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.ProgressDialogController
 import dagger.Module
@@ -54,6 +55,10 @@ class PhotosListFragmentModule {
 
     @Provides
     @PerFragment
-    fun providePhotosListAdapter(): PhotosListAdapter = PhotosListAdapter()
+    fun provideInfiniteScrollProgressViewModel() = InfiniteScrollingProgressViewModel()
+
+    @Provides
+    @PerFragment
+    fun providePhotosListAdapter(viewModel: InfiniteScrollingProgressViewModel): PhotosListAdapter = PhotosListAdapter(viewModel)
 
 }

@@ -36,10 +36,12 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
     lateinit var getPhotosList: GetPhotosList
     @Inject
     lateinit var entityMapper: DataMapper<Photo, PhotosListItemViewModel>
-
+    @Inject
+    lateinit var progressBarViewModel: InfiniteScrollingProgressViewModel
 
     var loadNewData: Subject<List<PhotosListItemViewModel>> = ReplaySubject.create()
     var headerColorObservable: ObservableInt = ObservableInt()
+    var lastDataWasDownloaded: Boolean = false
 
     override fun resetHeaderColor() {
         headerColorObservable.set(colorGenerator.getColor(GREEN_HEADER_COLOR))
@@ -109,12 +111,33 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
     }
 
     override fun loadData(id: Int) {
+        if (lastDataWasDownloaded)
+            return
+
+        showInfiniteScrollingProgressBar()
+
         getPhotosList.getPhotosList(id)
                 .map { photo -> entityMapper.transform(photo) }
                 .doOnError { error -> Timber.d(error.message) }
-                .subscribe({ data -> loadNewData.onNext(data) })
+                .subscribe({ data ->
+                    loadNewData.onNext(data)
+                    hideInfiniteScrollingProgressBar()
+                })
+    }
+
+    private fun hideInfiniteScrollingProgressBar() {
+        progressBarViewModel.hideProgressBar()
+    }
+
+    private fun showInfiniteScrollingProgressBar() {
+        progressBarViewModel.showProgressBar()
+
     }
 
     override fun getLoadNewDataSubject(): Subject<List<PhotosListItemViewModel>> = loadNewData
 
+
+    override fun setLastDataDownloaded(downloaded: Boolean) {
+        lastDataWasDownloaded = downloaded
+    }
 }
