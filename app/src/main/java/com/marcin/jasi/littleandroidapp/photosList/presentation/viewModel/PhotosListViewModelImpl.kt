@@ -52,7 +52,7 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
     }
 
     override fun getOnHeaderTouchListener(): View.OnTouchListener {
-        return View.OnTouchListener(function = { view: View?, motionEvent: MotionEvent ->
+        return View.OnTouchListener(function = { _: View?, motionEvent: MotionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
                     callPressHeader()
@@ -95,7 +95,7 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
             validateIfCountingInterupted(time)
         })
 
-        dialog.setOnDismissListener({ dialog -> progressDialogController.onDispose() })
+        dialog.setOnDismissListener({ progressDialogController.onDispose() })
 
         dialog.show()
         disposable.add(progressDialogController.startAnimation())
@@ -114,6 +114,7 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
         if (lastDataWasDownloaded)
             return
 
+//        if (id != GetPhotosList.FIRST_SIDE)
         showInfiniteScrollingProgressBar()
 
         getPhotosList.getPhotosList(id)
@@ -135,7 +136,6 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
     }
 
     override fun getLoadNewDataSubject(): Subject<List<PhotosListItemViewModel>> = loadNewData
-
 
     override fun setLastDataDownloaded(downloaded: Boolean) {
         lastDataWasDownloaded = downloaded

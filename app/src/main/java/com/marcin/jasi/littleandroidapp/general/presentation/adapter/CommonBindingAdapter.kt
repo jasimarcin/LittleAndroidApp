@@ -2,6 +2,7 @@ package com.marcin.jasi.littleandroidapp.general.presentation.adapter
 
 import android.databinding.BindingAdapter
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -29,6 +30,12 @@ class CommonBindingAdapter {
         @JvmStatic
         @BindingAdapter("onClick")
         fun setOnTouchListener(view: View, listener: View.OnClickListener) {
+            view.setOnClickListener(listener)
+        }
+
+        @JvmStatic
+        @BindingAdapter("onClick")
+        fun setOnTouchListener(view: Button, listener: View.OnClickListener) {
             view.setOnClickListener(listener)
         }
 

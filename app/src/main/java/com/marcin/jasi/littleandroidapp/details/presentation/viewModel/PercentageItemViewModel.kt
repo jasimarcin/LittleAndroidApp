@@ -1,0 +1,6 @@
+package com.marcin.jasi.littleandroidapp.details.presentation.viewModel
+
+import com.marcin.jasi.littleandroidapp.details.domain.entity.Percentage
+import com.marcin.jasi.littleandroidapp.general.presentation.common.CommonViewModel
+
+class PercentageItemViewModel(var item: Percentage) : CommonViewModel

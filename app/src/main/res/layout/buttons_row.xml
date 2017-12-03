@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.marcin.jasi.littleandroidapp.details.presentation.viewModel.ButtonsItemViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/photos_list_image_margin"
+        android:background="@color/photos_list_row_background_color">
+
+        <Button
+            android:id="@+id/top_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/details_row_buttons_height"
+            android:text="@string/buttons_row_top_button_text"
+            android:visibility="@{viewModel.topButtonVisibility}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onClick="@{viewModel.topButtonClick()}" />
+
+        <Button
+            android:id="@+id/bottom_back_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/details_row_buttons_height"
+            android:text="@string/buttons_row_bottom_back_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_button"
+            app:onClick="@{viewModel.backButtonClick()}"
+            tools:text="BACK BUTTON" />
+
+        <Button
+            android:id="@+id/bottom_front_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/details_row_buttons_height"
+            android:text="@string/buttons_row_bottom_fron_button_text"
+            android:visibility="@{viewModel.frontButtonVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_button"
+            app:onClick="@{viewModel.frontButtonClick()}"
+            tools:text="TOP BUTTON" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

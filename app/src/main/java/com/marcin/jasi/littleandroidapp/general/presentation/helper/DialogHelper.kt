@@ -10,11 +10,10 @@ import com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.Progre
 
 class DialogHelper(var context: Context) {
 
-
     fun showProgressBarDialog(controller: ProgressDialogController): Dialog {
-        var dialogBuilder = AlertDialog.Builder(context)
+        val dialogBuilder = AlertDialog.Builder(context)
 
-        var binding = ProgressDialogLayoutBinding.inflate(LayoutInflater.from(context))
+        val binding = ProgressDialogLayoutBinding.inflate(LayoutInflater.from(context))
         binding.controller = controller
 
         dialogBuilder.setView(binding.root)

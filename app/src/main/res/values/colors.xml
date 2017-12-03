@@ -14,5 +14,6 @@
     <color name="dialog_background_color">#6fff</color>
     <color name="dialog_text_color">#b568</color>
     <color name="photos_list_row_background_color">#9fff</color>
+    <color name="details_list_row_background_color">#3fff</color>
 
 </resources>

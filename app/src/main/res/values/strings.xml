@@ -9,4 +9,16 @@
     <string name="dialog_header_text">DIALOG</string>
     <string name="dialog_cancel_button_text">CANCEL</string>
 
+    <string name="exit_app_toast_text">Click back button to exit</string>
+
+    <string name="details_left_row_button">a</string>
+    <string name="details_center_row_button">b</string>
+    <string name="details_right_row_button">c</string>
+
+    <string name="loading_row_button">click me</string>
+
+    <string name="buttons_row_top_button_text">button 1</string>
+    <string name="buttons_row_bottom_fron_button_text">button 2</string>
+    <string name="buttons_row_bottom_back_button_text">button 3</string>
+
 </resources>

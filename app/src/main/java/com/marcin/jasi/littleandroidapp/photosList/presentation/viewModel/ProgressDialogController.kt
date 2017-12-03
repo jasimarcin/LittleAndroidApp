@@ -26,6 +26,8 @@ class ProgressDialogController {
     val callFinish: Subject<Int> = ReplaySubject.create<Int>()
     var progress = ObservableInt(START_PROGRESS)
     var counter = START_PROGRESS
+    var showButtons = ObservableInt(View.VISIBLE)
+    var showHeader = ObservableInt(View.VISIBLE)
 
     // I`m sory, but I don`t recomend using AsyncTask :(
     fun startAnimation(): Disposable {
@@ -36,7 +38,7 @@ class ProgressDialogController {
         disposable.add(Observable.interval(PERIOD, UNIT)
                 .timeInterval()
                 .observeOn(Schedulers.computation())
-                .subscribe({ t ->
+                .subscribe({
                     calculateProgres()
                     refreshCountObservable()
                     checkIfNeedFinish()
@@ -58,7 +60,7 @@ class ProgressDialogController {
         counter += STEP_PROGRESS
     }
 
-    fun onCancelClick(): View.OnClickListener = View.OnClickListener { v -> callFinish.onNext(counter) }
+    fun onCancelClick(): View.OnClickListener = View.OnClickListener { callFinish.onNext(counter) }
 
     fun onDispose() {
         counter = START_PROGRESS
@@ -67,5 +69,13 @@ class ProgressDialogController {
             return
 
         disposable.dispose()
+    }
+
+    fun hideButtons() {
+        showButtons.set(View.INVISIBLE)
+    }
+
+    fun hideHeader() {
+        showHeader.set(View.INVISIBLE)
     }
 }

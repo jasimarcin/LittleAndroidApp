@@ -58,17 +58,25 @@ class PhotosListFragment : CommonFragment<PhotosListViewModel>() {
                 viewModel.getLoadNewDataSubject()
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnNext({ dataList -> checkIfLastDada(dataList) })
-                        .map { data ->
+                        .doOnNext({ data ->
+                            checkIfLastDada(data)
                             mergeLists(data)
                             sortList(data)
                             setAwaitingForScrollDown()
-
-                            var result = adapter.getDiffResult(data)
-                            Pair(data, result)
-                        }
+                        })
+                        .map { data -> Pair(data, adapter.getDiffResult(data)) }
                         .doOnError { throwable -> Timber.d(throwable.message) }
                         .subscribe({ data -> updateList(data) }))
+    }
+
+    private fun updateList(data: Pair<List<PhotosListItemViewModel>, DiffUtil.DiffResult>) {
+        val firstPage = adapter.items.size == 0
+
+        adapter.setItems(data.first)
+        data.second.dispatchUpdatesTo(adapter)
+
+        if (firstPage)
+            binding.recyclerView.scrollToPosition(0)
     }
 
     private fun checkIfLastDada(dataList: List<PhotosListItemViewModel>) {
@@ -89,11 +97,6 @@ class PhotosListFragment : CommonFragment<PhotosListViewModel>() {
                 else -> 0
             }
         })
-    }
-
-    private fun updateList(data: Pair<List<PhotosListItemViewModel>, DiffUtil.DiffResult>) {
-        adapter.setItems(data.first)
-        data.second.dispatchUpdatesTo(adapter)
     }
 
 }
