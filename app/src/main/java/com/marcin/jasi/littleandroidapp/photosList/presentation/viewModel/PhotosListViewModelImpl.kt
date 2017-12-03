@@ -1,7 +1,6 @@
 package com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel
 
 import android.databinding.ObservableInt
-import android.support.v7.util.DiffUtil
 import android.view.MotionEvent
 import android.view.View
 import com.marcin.jasi.littleandroidapp.R
@@ -25,8 +24,6 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
         var RED_HEADER_COLOR = R.color.red_color
         var BLUE_HEADER_COLOR = R.color.blue_color
         var WHITE_HEADER_COLOR = R.color.white_color
-
-        val FIRST_SIDE = 0L
     }
 
     @Inject
@@ -111,8 +108,8 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
         headerColorObservable.set(colorGenerator.getColor(BLUE_HEADER_COLOR))
     }
 
-    override fun loadData() {
-        getPhotosList.getPhotosList(FIRST_SIDE)
+    override fun loadData(id: Int) {
+        getPhotosList.getPhotosList(id)
                 .map { photo -> entityMapper.transform(photo) }
                 .doOnError { error -> Timber.d(error.message) }
                 .subscribe({ data -> loadNewData.onNext(data) })

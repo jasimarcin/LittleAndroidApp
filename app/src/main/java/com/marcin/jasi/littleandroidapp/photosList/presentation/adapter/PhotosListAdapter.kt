@@ -9,13 +9,32 @@ import com.marcin.jasi.littleandroidapp.R
 import com.marcin.jasi.littleandroidapp.databinding.PhotosListRowBinding
 import com.marcin.jasi.littleandroidapp.photosList.presentation.viewHolder.PhotoItemViewHolder
 import com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.PhotosListItemViewModel
+import io.reactivex.subjects.ReplaySubject
 
 class PhotosListAdapter : RecyclerView.Adapter<PhotoItemViewHolder>() {
 
+    companion object {
+        val AWAIT_SCROLL_DOWN_BEFORE = 4
+    }
+
+    var endScrollSubject = ReplaySubject.create<Int>()
     var items: ArrayList<PhotosListItemViewModel> = ArrayList()
+    var awaitingForScrollDown: Boolean = false
 
     override fun onBindViewHolder(holder: PhotoItemViewHolder?, position: Int) {
         holder!!.bind(items[position])
+        checkScrollDown(position)
+    }
+
+    private fun checkScrollDown(position: Int) {
+        if (!awaitingForScrollDown)
+            return
+
+        if (position <= itemCount - AWAIT_SCROLL_DOWN_BEFORE)
+            return
+
+        awaitingForScrollDown = false
+        endScrollSubject.onNext(itemCount)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): PhotoItemViewHolder {
@@ -45,7 +64,6 @@ class PhotosListAdapter : RecyclerView.Adapter<PhotoItemViewHolder>() {
             fun compareObjects(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 return this@PhotosListAdapter.items[oldItemPosition].getUrl().equals(items[newItemPosition].getUrl()) &&
                         this@PhotosListAdapter.items[oldItemPosition].getTitle().equals(items[newItemPosition].getTitle())
-
             }
         }
     }

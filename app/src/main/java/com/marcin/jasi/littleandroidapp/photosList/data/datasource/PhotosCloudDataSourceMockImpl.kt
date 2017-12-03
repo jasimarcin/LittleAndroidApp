@@ -9,14 +9,19 @@ import io.reactivex.Observable
 // Class created for mock backend responses
 class PhotosCloudDataSourceMockImpl(var mapper: DataMapper<PhotoData, Photo>) : PhotosCloudDataSource {
 
-    // simulation backend
+    companion object {
+        val MAX_DATA = 200
+    }
+
+    // backend simulation
     override fun getPhotosList(params: GetPhotosListParams): Observable<List<Photo>> {
         return Observable.create({ emiter ->
 
             var data = ArrayList<PhotoData>()
 
-            for (number in 0..params.amount)
-                data.add(getPhotoObject(params, number))
+            for (number in params.lastId..(params.amount + params.lastId - 1))
+                if (number <= MAX_DATA)
+                    data.add(getPhotoObject(number))
 
             emiter.onNext(mapper.transform(data))
             emiter.onComplete()
@@ -24,7 +29,7 @@ class PhotosCloudDataSourceMockImpl(var mapper: DataMapper<PhotoData, Photo>) : 
 
     }
 
-    fun getPhotoObject(params: GetPhotosListParams, number: Long): PhotoData {
+    fun getPhotoObject(number: Long): PhotoData {
         var dataSet = number % 3
 
         var url = when (dataSet) {
