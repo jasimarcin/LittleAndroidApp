@@ -22,7 +22,7 @@ class MainActivity : CommonActivity<MainActivityViewModel>() {
     lateinit var adapter: MainActivityViewPager
 
     lateinit var binding: ActivityMainBinding
-    var lastBackClickInMilis: Long = 0
+    var lastBackClickInMillis: Long = 0
 
 
     override fun bindData() {
@@ -36,10 +36,10 @@ class MainActivity : CommonActivity<MainActivityViewModel>() {
     override fun onBackPressed() {
         val currentTime = Calendar.getInstance().timeInMillis
 
-        if (currentTime - lastBackClickInMilis < BACK_CLICK_FREQUENCY)
+        if (currentTime - lastBackClickInMillis < BACK_CLICK_FREQUENCY)
             super.onBackPressed()
 
-        lastBackClickInMilis = currentTime
+        lastBackClickInMillis = currentTime
         showBackClickToast()
     }
 

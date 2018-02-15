@@ -8,7 +8,7 @@ import com.marcin.jasi.littleandroidapp.databinding.ProgressDialogLayoutBinding
 import com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel.ProgressDialogController
 
 
-class DialogHelper(var context: Context) {
+class DialogHelper(private var context: Context) {
 
     fun showProgressBarDialog(controller: ProgressDialogController): Dialog {
         val dialogBuilder = AlertDialog.Builder(context)

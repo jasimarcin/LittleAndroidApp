@@ -6,7 +6,7 @@ import com.marcin.jasi.littleandroidapp.photosList.domain.entity.GetPhotosListPa
 import com.marcin.jasi.littleandroidapp.photosList.domain.entity.Photo
 import io.reactivex.Observable
 
-class GetPhotosList(val repository: PhotosRepository) : UseCase {
+class GetPhotosList(private val repository: PhotosRepository) : UseCase {
 
     companion object {
         val PACK_SIZE = 20L

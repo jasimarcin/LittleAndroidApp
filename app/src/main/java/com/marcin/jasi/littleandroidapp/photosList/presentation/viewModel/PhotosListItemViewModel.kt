@@ -6,7 +6,7 @@ import com.marcin.jasi.littleandroidapp.photosList.domain.entity.Photo
 class PhotosListItemViewModel(var item: Photo) : CommonViewModel {
 
     companion object {
-        val TITLE_TEXT = "Item: %s"
+       const val TITLE_TEXT = "Item: %s"
     }
 
     fun getUrl(): String = item.url

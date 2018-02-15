@@ -17,7 +17,7 @@ abstract class CommonActivity<T : CommonViewModel> : AppCompatActivity(), HasAct
     @Inject
     lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    val disposable: CompositeDisposable = CompositeDisposable()
+    private val disposable: CompositeDisposable = CompositeDisposable()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +36,8 @@ abstract class CommonActivity<T : CommonViewModel> : AppCompatActivity(), HasAct
     }
 
     override fun onDestroy() {
+        viewModel.dispose()
+
         if (!disposable.isDisposed)
             disposable.dispose()
 

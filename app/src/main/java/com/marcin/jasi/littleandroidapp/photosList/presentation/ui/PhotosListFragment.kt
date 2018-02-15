@@ -46,7 +46,7 @@ class PhotosListFragment : CommonFragment<PhotosListViewModel>() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
 
-        disposable.add(adapter.endScrollSubject.subscribe({ lastScrollerdId -> viewModel.loadData(lastScrollerdId) }))
+        disposable.add(adapter.endScrollSubject.subscribe({ lastScrolledId -> viewModel.loadData(lastScrolledId) }))
     }
 
     private fun setAwaitingForScrollDown() {
@@ -57,7 +57,6 @@ class PhotosListFragment : CommonFragment<PhotosListViewModel>() {
         disposable.add(
                 viewModel.getLoadNewDataSubject()
                         .subscribeOn(Schedulers.computation())
-                        .observeOn(AndroidSchedulers.mainThread())
                         .doOnNext({ data ->
                             checkIfLastDada(data)
                             mergeLists(data)
@@ -66,6 +65,7 @@ class PhotosListFragment : CommonFragment<PhotosListViewModel>() {
                         })
                         .map { data -> Pair(data, adapter.getDiffResult(data)) }
                         .doOnError { throwable -> Timber.d(throwable.message) }
+                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ data -> updateList(data) }))
     }
 

@@ -21,9 +21,9 @@ class PhotosListAdapter(var progressBarViewModel: InfiniteScrollingProgressViewM
     : RecyclerView.Adapter<BaseRecyclerViewHolder<ViewDataBinding, CommonViewModel>>() {
 
     companion object {
-        val ITEM: Int = 0
-        val PROGRESS_BAR: Int = 1
-        val AWAIT_SCROLL_DOWN_BEFORE = 4
+       const val ITEM: Int = 0
+       const val PROGRESS_BAR: Int = 1
+       const val AWAIT_SCROLL_DOWN_BEFORE = 4
     }
 
     var endScrollSubject = ReplaySubject.create<Int>()
@@ -55,12 +55,12 @@ class PhotosListAdapter(var progressBarViewModel: InfiniteScrollingProgressViewM
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseRecyclerViewHolder<ViewDataBinding, CommonViewModel> {
         val inflater = LayoutInflater.from(parent!!.context)
 
-        if (viewType == PROGRESS_BAR) {
+        return if (viewType == PROGRESS_BAR) {
             val progressBarBinding: RowProgressBarBinding = DataBindingUtil.inflate(inflater, R.layout.row_progress_bar, parent, false)
-            return InfiniteScrollingProgressViewHolder(progressBarBinding)
+            InfiniteScrollingProgressViewHolder(progressBarBinding)
         } else {
             val binding: PhotosListRowBinding = DataBindingUtil.inflate(inflater, R.layout.photos_list_row, parent, false)
-            return PhotoItemViewHolder(binding)
+            PhotoItemViewHolder(binding)
         }
     }
 

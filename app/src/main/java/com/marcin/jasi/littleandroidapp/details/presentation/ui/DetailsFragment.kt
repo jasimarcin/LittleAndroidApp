@@ -21,6 +21,10 @@ import javax.inject.Inject
 @PerFragment
 class DetailsFragment : CommonFragment<DetailsFragmentViewModel>() {
 
+    companion object {
+        const val TEMPORARY_URL: String = "https://media.giphy.com/media/IHHzf3XSDzKec/giphy.gif"
+    }
+
     @Inject
     lateinit var adapter: DetailsListAdapter
     @Inject
@@ -54,8 +58,8 @@ class DetailsFragment : CommonFragment<DetailsFragmentViewModel>() {
         list.add(LoadingItemViewModel(Loading(), dialogHelper))
         list.add(PercentageItemViewModel(Percentage()))
 
-        for (number in 1L..20L) {
-            list.add(DetailsItemViewModel(Details("https://media.giphy.com/media/IHHzf3XSDzKec/giphy.gif", number)))
+        (1L..20L).mapTo(list) {
+            DetailsItemViewModel(Details(TEMPORARY_URL, it))
         }
 
         activity.runOnUiThread({

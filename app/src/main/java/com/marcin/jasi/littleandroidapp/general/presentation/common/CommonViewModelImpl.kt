@@ -7,7 +7,7 @@ open class CommonViewModelImpl : CommonViewModel {
 
     var disposable = CompositeDisposable()
 
-    fun dispose(){
+    override fun dispose() {
         if (disposable.isDisposed)
             return
 

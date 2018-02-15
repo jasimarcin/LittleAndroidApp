@@ -20,10 +20,10 @@ import javax.inject.Inject
 class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), PhotosListViewModel {
 
     companion object {
-        var GREEN_HEADER_COLOR = R.color.green_color
-        var RED_HEADER_COLOR = R.color.red_color
-        var BLUE_HEADER_COLOR = R.color.blue_color
-        var WHITE_HEADER_COLOR = R.color.white_color
+        const val GREEN_HEADER_COLOR = R.color.green_color
+        const val RED_HEADER_COLOR = R.color.red_color
+        const val BLUE_HEADER_COLOR = R.color.blue_color
+        const val WHITE_HEADER_COLOR = R.color.white_color
     }
 
     @Inject
@@ -39,9 +39,9 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
     @Inject
     lateinit var progressBarViewModel: InfiniteScrollingProgressViewModel
 
-    var loadNewData: Subject<List<PhotosListItemViewModel>> = ReplaySubject.create()
-    var headerColorObservable: ObservableInt = ObservableInt()
-    var lastDataWasDownloaded: Boolean = false
+    private var loadNewData: Subject<List<PhotosListItemViewModel>> = ReplaySubject.create()
+    private var headerColorObservable: ObservableInt = ObservableInt()
+    private var lastDataWasDownloaded: Boolean = false
 
     override fun resetHeaderColor() {
         headerColorObservable.set(colorGenerator.getColor(GREEN_HEADER_COLOR))
@@ -70,7 +70,7 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
         })
     }
 
-    fun callPressHeader() {
+    private fun callPressHeader() {
         setWhiteHeaderTextColor()
     }
 
@@ -78,7 +78,7 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
         headerColorObservable.set(colorGenerator.getColor(WHITE_HEADER_COLOR))
     }
 
-    fun callReleaseHeader() {
+    private fun callReleaseHeader() {
         setRedHeaderTextColor()
         showProgressDialog()
     }
@@ -114,7 +114,6 @@ class PhotosListViewModelImpl @Inject constructor() : CommonViewModelImpl(), Pho
         if (lastDataWasDownloaded)
             return
 
-//        if (id != GetPhotosList.FIRST_SIDE)
         showInfiniteScrollingProgressBar()
 
         getPhotosList.getPhotosList(id)

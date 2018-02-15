@@ -1,7 +1,6 @@
 package com.marcin.jasi.littleandroidapp.photosList.presentation.viewModel
 
 import android.databinding.ObservableInt
-import android.util.Log
 import android.view.View
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -15,21 +14,21 @@ import java.util.concurrent.TimeUnit
 class ProgressDialogController {
 
     companion object {
-        val START_PROGRESS = 0
-        val END_PROGRESS = 120
-        val STEP_PROGRESS = 20
-        val PERIOD = 1L
+        const val START_PROGRESS = 0
+        const val END_PROGRESS = 120
+        const val STEP_PROGRESS = 20
+        const val PERIOD = 1L
         val UNIT = TimeUnit.SECONDS
     }
 
     var disposable = CompositeDisposable()
     val callFinish: Subject<Int> = ReplaySubject.create<Int>()
-    var progress = ObservableInt(START_PROGRESS)
     var counter = START_PROGRESS
+    var progress = ObservableInt(START_PROGRESS)
     var showButtons = ObservableInt(View.VISIBLE)
     var showHeader = ObservableInt(View.VISIBLE)
 
-    // I`m sory, but I don`t recomend using AsyncTask :(
+
     fun startAnimation(): Disposable {
         counter = START_PROGRESS
         refreshCountObservable()
@@ -39,7 +38,7 @@ class ProgressDialogController {
                 .timeInterval()
                 .observeOn(Schedulers.computation())
                 .subscribe({
-                    calculateProgres()
+                    calculateProgress()
                     refreshCountObservable()
                     checkIfNeedFinish()
                 }))
@@ -56,7 +55,7 @@ class ProgressDialogController {
             callFinish.onNext(counter)
     }
 
-    private fun calculateProgres() {
+    private fun calculateProgress() {
         counter += STEP_PROGRESS
     }
 
